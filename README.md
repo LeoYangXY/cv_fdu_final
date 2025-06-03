@@ -1,30 +1,20 @@
 ```markdown
-# CV_FDU_Final
+
+最详细的流程在Instant-NGP中描述了，其余的均展示训练，测试渲染的主要步骤
 
 ---
 
-##三种方法
-
-
-
-
 ## NeRF
 
-### 训练
 ```bash
+### Training
 python run_nerf.py --config configs/custom.txt
-```
 
-### 测试
-```bash
+### Testing
 python run_nerf.py --config configs/custom.txt --render_only --render_factor 0
-```
 
-### 渲染
-```bash
+### Rendering
 python run_nerf.py --config configs/custom.txt --render_only --render_test
-```
-
 ---
 
 ## Instant-NGP
