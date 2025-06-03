@@ -1,16 +1,16 @@
 ### NeRF
 
-#### Training
+#### 训练
 ```bash
 python run_nerf.py --config configs/custom.txt
 ```
 
-#### Testing
+#### 测试
 ```bash
 python run_nerf.py --config configs/custom.txt --render_only --render_factor 0
 ```
 
-#### Rendering
+#### 渲染
 ```bash
 python run_nerf.py --config configs/custom.txt --render_only --render_test
 ```
