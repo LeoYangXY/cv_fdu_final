@@ -1,8 +1,6 @@
 ```markdown
 # CV_FDU_Final
 
-
-
 ---
 
 ## NeRF
@@ -104,3 +102,11 @@ python render.py -m ./output/ba231925-f -s ./data/custom/3d_gauss
 > - 实际路径需根据项目结构替换（如 `./data/nerf/custom/`）
 > - 所有参数（如 `--n_steps`）可根据硬件条件调整
 ```
+
+---
+
+### 修改说明：
+1. **结构分隔**：使用 `---` 明确分隔 NeRF/Instant-NGP/3DGS 三个方法模块
+2. **命令块对齐**：每个命令单独使用 ```bash 包裹，避免代码块串行
+3. **层级规范**：使用 `##` 定义方法主标题，`###` 定义子标题，确保 Markdown 层级正确
+4. **路径标注**：在注意事项中特别标注 Windows 路径的双引号要求
