@@ -1,7 +1,7 @@
 ```markdown
-# CV_FDU_FINAL 实验流程记录
+# CV_FDU_Final
 
-## NeRF 实验流程
+## NeRF
 
 ### 训练
 ```bash
@@ -20,24 +20,35 @@ python run_nerf.py --config configs/custom.txt --render_only --render_test
 
 ---
 
-## Instant-NGP 实验流程
+## Instant-NGP
 
-### 数据准备
-1. 拍摄视频并使用ffmpeg提取所有帧
-2. 使用Python脚本处理得到train/test数据集
-3. 使用colmap处理train数据集
+### 数据准备流程
+1. **视频采集**
+   - 使用设备拍摄视频并提取帧序列
+   - 使用 `ffmpeg` 提取所有帧图像
 
-### 训练准备
-```bash
-# 转换sparse为transforms.json
-python scripts/colmap2nerf.py \
-    --text ./raw_data/sparse_train_txt/ \
-    --images ./data/nerf/custom/images/ \
-    --colmap_camera_model OPENCV \
-    --out ./data/nerf/custom/transforms.json
-```
+2. **数据集划分**
+   ```bash
+   python [处理脚本]  # 将帧序列划分为 train/test 集
+   ```
 
-### 开始训练
+3. **COLMAP 处理**
+   ```bash
+   colmap [命令]  # 处理 train 数据集生成稀疏重建
+   ```
+
+4. **转换 COLMAP 到 NeRF 格式**
+   ```bash
+   python scripts/colmap2nerf.py \
+       --text ./raw_data/sparse_train_txt/ \
+       --images ./data/nerf/custom/images/ \
+       --colmap_camera_model OPENCV \
+       --out ./data/nerf/custom/transforms.json
+   ```
+
+---
+
+### 云平台训练
 ```bash
 python scripts/run.py \
   --scene data/nerf/custom \
@@ -49,7 +60,7 @@ python scripts/run.py \
   --exposure 0.2
 ```
 
-### 测试
+### 测试推理
 ```bash
 python scripts/run.py \
   --scene data/nerf/custom/ \
@@ -64,12 +75,13 @@ python scripts/run.py \
 
 ### 视频合成
 ```bash
-ffmpeg -framerate 10 -i "D:\Users\HUAWEI\Desktop\CV\instant-ngp\pic\frame_%04d.jpg" -c:v libx264 -pix_fmt yuv420p -crf 18 "D:\Users\HUAWEI\Desktop\output.mp4"
+ffmpeg -framerate 10 -i "D:\Users\HUAWEI\Desktop\CV\instant-ngp\pic\frame_%04d.jpg" \
+  -c:v libx264 -pix_fmt yuv420p -crf 18 "D:\Users\HUAWEI\Desktop\output.mp4"
 ```
 
 ---
 
-## 3D Gaussian Splatting 实验流程
+## 3D Gaussian Splatting
 
 ### 训练
 ```bash
@@ -80,4 +92,11 @@ python train.py -s ./data/custom/3d_gauss
 ```bash
 python render.py -m ./output/ba231925-f -s ./data/custom/3d_gauss
 ```
+
+---
+
+> ⚠️ 注意事项：
+> - Windows 路径需使用双引号包裹（如 `ffmpeg` 命令）
+> - 实际路径需根据项目结构替换（如 `./data/nerf/custom/`）
+> - 所有参数（如 `--n_steps`）可根据硬件条件调整
 ```
