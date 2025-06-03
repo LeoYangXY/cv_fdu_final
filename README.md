@@ -1,28 +1,23 @@
-```markdown
----
+### NeRF
 
-#cv_final
-最详细的流程在Instant-NGP中描述了，其余的均展示训练，测试渲染的主要步骤
-
----
-
-
-## NeRF
-
+#### Training
 ```bash
-### Training
 python run_nerf.py --config configs/custom.txt
+```
 
-### Testing
+#### Testing
+```bash
 python run_nerf.py --config configs/custom.txt --render_only --render_factor 0
+```
 
-### Rendering
+#### Rendering
+```bash
 python run_nerf.py --config configs/custom.txt --render_only --render_test
----
+```
 
-## Instant-NGP
+### Instant-NGP
 
-### 数据准备流程
+#### 数据准备流程
 1. **视频采集**
    - 使用设备拍摄视频并提取帧序列
    - 使用 `ffmpeg` 提取所有帧图像
@@ -46,9 +41,7 @@ python run_nerf.py --config configs/custom.txt --render_only --render_test
        --out ./data/nerf/custom/transforms.json
    ```
 
----
-
-### 云平台训练
+#### 云平台训练
 ```bash
 python scripts/run.py \
   --scene data/nerf/custom \
@@ -60,7 +53,7 @@ python scripts/run.py \
   --exposure 0.2
 ```
 
-### 测试推理
+#### 测试推理
 ```bash
 python scripts/run.py \
   --scene data/nerf/custom/ \
@@ -73,32 +66,25 @@ python scripts/run.py \
   --n_steps 0
 ```
 
-### 视频合成
+#### 视频合成
 ```bash
 ffmpeg -framerate 10 -i "D:\Users\HUAWEI\Desktop\CV\instant-ngp\pic\frame_%04d.jpg" \
   -c:v libx264 -pix_fmt yuv420p -crf 18 "D:\Users\HUAWEI\Desktop\output.mp4"
 ```
 
----
+### 3D Gaussian Splatting
 
-## 3D Gaussian Splatting
-
-### 训练
+#### 训练
 ```bash
 python train.py -s ./data/custom/3d_gauss
 ```
 
-### 渲染
+#### 渲染
 ```bash
 python render.py -m ./output/ba231925-f -s ./data/custom/3d_gauss
 ```
-
----
 
 > ⚠️ 注意事项：
 > - Windows 路径需使用双引号包裹（如 `ffmpeg` 命令）
 > - 实际路径需根据项目结构替换（如 `./data/nerf/custom/`）
 > - 所有参数（如 `--n_steps`）可根据硬件条件调整
-```
-
----
