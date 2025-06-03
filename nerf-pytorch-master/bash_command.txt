@@ -1,0 +1,10 @@
+train：
+python run_nerf.py --config configs/custom.txt
+
+在tmp中看记录
+
+test：
+python run_nerf.py --config configs/custom.txt --render_only --render_factor 0
+
+渲染+定量指标
+python run_nerf.py --config configs/custom.txt --render_only --render_test

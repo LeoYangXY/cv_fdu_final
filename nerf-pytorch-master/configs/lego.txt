@@ -1,0 +1,21 @@
+expname = blender_paper_lego
+basedir = ./logs
+datadir = ./data/nerf_synthetic/lego
+dataset_type = blender
+
+# ===== 核心加速参数 =====
+no_batching = False          # 必须改为False以启用并行渲染
+chunk = 1024                 # 分块大小，匹配N_rand（显存关键！）
+N_rand = 1024               # 从16384降至8192（最佳平衡点）
+half_res = False             # 全分辨率训练（显存充足时必开）
+
+# ===== 质量与收敛性 =====
+use_viewdirs = True          # 保持视角依赖（镜面反射关键）
+white_bkgd = True            # 白色背景加速收敛
+lrate_decay = 2000           # 延迟学习率衰减
+N_samples = 64               # 粗采样点（保持平衡）
+N_importance = 128           # 精采样点（保持平衡）
+
+# ===== 训练策略优化 =====
+precrop_iters = 0            # 禁用初始裁剪（直接全图训练）
+precrop_frac = 0.5           # 保留参数但无效（因precrop_iters=0）
